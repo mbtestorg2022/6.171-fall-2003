@@ -144,7 +144,7 @@ Here are some guidelines for your data model. Please note that this is not inten
 
 Now that you're written all of your create table statements and put them in a file named "/doc/sql/reserve.sql", feed the definitions to Oracle. If you don't want to cut and paste into SQL\*Plus, you can use Unix® shell I/O redirection:
 
-> > sqlplus / < reserve.sql
+> > sqlplus / \< reserve.sql
 
 If you slept through 6.170 and didn't learn how to write bug-free code, you might find yourself running this command repeatedly. Although Oracle provides powerful transaction management, data definition language statements such as create table can not be rolled back. So if your file defines three tables and there is an error in the definition of the second table, you will usually end up succeeding in defining two tables with the preceding command. You can go into Emacs and edit reserve.sql and then rerun the shell command. Oracle will ignore the first and third table definitions since the tables already exist and define only your second table.
 
@@ -192,11 +192,66 @@ We're not going to worry about uber-users or room approval for the moment. Inste
 
 How could there be a time conflict given that the preceding page only showed free rooms? Here's the concurrency situation which we're worried about:
 
-| Olin Egghead says that he needs a room for 8 people at 3:00 pm tomorrow, for a 45-minute meeting. |  |
-| Your module serves Olin the new.tcl page, showing that the Boesky Room is available. | Dorothy Alvelda says that she needs a room for 5 people tomorrow at 3:30 pm. |
-|  {{< br >}}{{< br >}} Olin is about to confirm the Boesky Room when the phone rings. A Wall Street firm is offering him $250,000 to become a C programmer in their commodities trading division. Olin immediately replies that he wouldn't consider abandoning his sacred academic principles for a minute. {{< br >}}{{< br >}} An hour later, Olin is still on the phone. {{< br >}}{{< br >}}  |  {{< br >}}{{< br >}} Since Olin has not yet booked any rooms, new.tcl shows Dorothy that the Boesky Room is among the available rooms at 3:30 tomorrow. {{< br >}}{{< br >}} Dorothy confirms the Boesky Room and new-2.tcl inserts a row into the database. {{< br >}}{{< br >}}  |
-| Olin hangs up and gets preoccupied with copying impressive-looking equations from the pizza delivery section of the Thessaloniki Yellow Pages into his latest research paper. |  |
-| Olin remembers that he needs that room for tomorrow and unburies his browser window, but does not reload new.tcl (i.e., he is looking at the page generated a couple of hours ago). Oh yes, the Boesky Room will be fine. Olin clicks to reserve the Boesky Room at 3:00 pm tomorrow. |  
+{{< tableopen >}}
+{{< tropen >}}
+{{< tdopen >}}
+Olin Egghead says that he needs a room for 8 people at 3:00 pm tomorrow, for a 45-minute meeting.
+{{< tdclose >}}
+{{< tdopen >}}
+
+{{< tdclose >}}
+
+{{< trclose >}}
+{{< tropen >}}
+{{< tdopen >}}
+Your module serves Olin the new.tcl page, showing that the Boesky Room is available.
+{{< tdclose >}}
+{{< tdopen >}}
+Dorothy Alvelda says that she needs a room for 5 people tomorrow at 3:30 pm.
+{{< tdclose >}}
+
+{{< trclose >}}
+{{< tropen >}}
+{{< tdopen >}}
+
+
+Olin is about to confirm the Boesky Room when the phone rings. A Wall Street firm is offering him $250,000 to become a C programmer in their commodities trading division. Olin immediately replies that he wouldn't consider abandoning his sacred academic principles for a minute.
+
+An hour later, Olin is still on the phone.
+
+
+{{< tdclose >}}
+{{< tdopen >}}
+
+
+Since Olin has not yet booked any rooms, new.tcl shows Dorothy that the Boesky Room is among the available rooms at 3:30 tomorrow.
+
+Dorothy confirms the Boesky Room and new-2.tcl inserts a row into the database.
+
+
+{{< tdclose >}}
+
+{{< trclose >}}
+{{< tropen >}}
+{{< tdopen >}}
+Olin hangs up and gets preoccupied with copying impressive-looking equations from the pizza delivery section of the Thessaloniki Yellow Pages into his latest research paper.
+{{< tdclose >}}
+{{< tdopen >}}
+
+{{< tdclose >}}
+
+{{< trclose >}}
+{{< tropen >}}
+{{< tdopen >}}
+Olin remembers that he needs that room for tomorrow and unburies his browser window, but does not reload new.tcl (i.e., he is looking at the page generated a couple of hours ago). Oh yes, the Boesky Room will be fine. Olin clicks to reserve the Boesky Room at 3:00 pm tomorrow.
+{{< tdclose >}}
+{{< tdopen >}}
+
+{{< tdclose >}}
+
+{{< trclose >}}
+
+{{< tableclose >}}
 
 If you want to act like a professional Web programmer, you therefore have to run the same query in new-2.tcl that you ran in new.tcl to make sure that the room is in fact still free.
 

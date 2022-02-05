@@ -147,7 +147,7 @@ Notice that the km\_metadata\_elements table contains specifications for 1) gene
 
 If you have trouble feeding the above table definition to SQL\*Plus running under an Emacs shell, cut and paste it into a file called "foo.sql". Then run
 
-> >  sqlplus student23/thepassword < foo.sql
+> >  sqlplus student23/thepassword \< foo.sql
 
 from the shell.
 
